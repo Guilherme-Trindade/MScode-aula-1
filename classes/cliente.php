@@ -2,11 +2,11 @@
 require_once('pessoa.php');
 
 class Cliente extends Pessoa {
-
+    
     public function __construct(
-        public readonly int $id,
+        private int $id,
         string $nome,
-         string $telefone,
+        string $telefone,
         string $cpf, 
         private float $saldoDevedor,
         string $email

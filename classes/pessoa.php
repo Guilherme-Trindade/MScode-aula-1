@@ -1,8 +1,8 @@
 <?php
 
 
-class Pessoa {
-
+class Pessoa
+{
     public function __construct(
         private readonly string $nome,
         protected string $telefone,
@@ -26,5 +26,4 @@ class Pessoa {
     {
         return $this->nome;
     }
-
 }
