@@ -15,7 +15,7 @@ try {
 
     $whatsapp = new Whatsapp();
     $compraService = new CompraService($whatsapp);
-    $compraService->finalizarCompra($cliente->getTelefone());
+    $compraService->finalizarCompra($cliente->getTelefone(), $produto);
 
     header('Location: clientes.php');
 

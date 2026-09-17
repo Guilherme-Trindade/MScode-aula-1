@@ -4,7 +4,7 @@ require_once(__DIR__ . '../../../classes/cliente.php');
 
 class PessoaRepository
 {
-  private string $table = 'mscode.pessoa';
+  private string $table = 'loja.pessoa';
 
   public function __construct(
     private PDO $pdo,
