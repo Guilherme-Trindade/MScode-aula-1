@@ -10,7 +10,7 @@ class Connection
 
   public static function getConnection(): PDO
   {
-    $host = 'db';
+    $host = 'localhost';
     $db   = 'mscode'; 
     $user = 'zeca';
     $pass = '2026'; 
