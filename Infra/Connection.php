@@ -12,8 +12,8 @@ class Connection
   {
     $host = 'db';
     $db   = 'mscode'; 
-    $user = 'guilherme'; 
-    $pass = 'guilherme'; 
+    $user = 'zeca';
+    $pass = '2026'; 
     $port = '3306'; 
     $charset = 'utf8mb4';
 
