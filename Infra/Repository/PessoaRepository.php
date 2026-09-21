@@ -40,13 +40,13 @@ class PessoaRepository
 
     return $usuarios;
   }
-  teste
 
   public function buscarClienteSaldoMenor10()
   {
     $sql = <<<SQL
       SELECT * FROM {$this->table} WHERE saldo_devedor < 10;
     SQL;
+
 
     $query = $this->pdo->prepare($sql);
     $query->execute();
