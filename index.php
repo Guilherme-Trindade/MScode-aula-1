@@ -1,8 +1,10 @@
 <?php
-require_once('dados.php');
+require_once(__DIR__ . '/Infra/Repository/ProdutoRepository.php');
+require_once(__DIR__ . '/Infra/Connection.php');
 
-
-$produtos = $_SESSION['produtos'];
+$produtos = (new ProdutoRepository(
+    Connection::getConnection()
+))->buscarTodosProdutos();
 
 ?>
 <!DOCTYPE html>

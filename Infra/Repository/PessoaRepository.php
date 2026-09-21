@@ -4,7 +4,7 @@ require_once(__DIR__ . '../../../classes/cliente.php');
 
 class PessoaRepository
 {
-  private string $table = 'mscode.pessoa';
+  private string $table = 'MSCODE.pessoa';
 
   public function __construct(
     private PDO $pdo,
@@ -46,6 +46,7 @@ class PessoaRepository
     $sql = <<<SQL
       SELECT * FROM {$this->table} WHERE saldo_devedor < 10;
     SQL;
+
 
     $query = $this->pdo->prepare($sql);
     $query->execute();
