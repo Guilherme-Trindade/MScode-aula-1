@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . '/classes/cliente.php');
 require_once(__DIR__ . '/Infra/Repository/PessoaRepository.php');
 require_once(__DIR__ . '/Infra/Connection.php');
 

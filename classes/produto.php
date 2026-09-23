@@ -1,42 +1,56 @@
-<?php 
+<?php
 
 class Produto {
 
     public function __construct(
-        public readonly int $codigo,
-        public readonly string $nome,
-        public readonly string $descricao,
-        private float $preco,
-        private string $categoria,
-        private string $caminhoImagem,
-        private int $quantidade
-    )
+        protected int $id,
+        readonly string $nome,
+        readonly string $descricao,
+        readonly float $preco,
+        readonly string $categoria,
+        readonly string $imagem,
+        readonly int $estoque
+
+    ){
+
+    }
+
+    public function getId(): int 
     {
-        if($this->preco < 0) {
-            throw new Exception("Preço não pode ser negativo");
-        }
+        return $this->id;
     }
     
-    public function getPreco(): float 
+    public function getPreco(): string 
     {
         return $this->preco;
     }
 
-    public  function getCategoria(): string 
+    public function getDescricao(): string 
+    {
+        return $this->descricao;
+    }
+
+    public function getCategoria(): string 
     {
         return $this->categoria;
     }
 
-    public function getCaminhoImagem(): string
-     {
-        return $this->caminhoImagem;
-    }
-
-    public function getQuantidade(): int 
+    public function getImagem(): string
     {
-        return $this->quantidade;
+        return $this->imagem;
     }
 
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+    
+    public function getEstoque(): string
+    {
+        return $this->estoque;
+    }
+
+    /*
     public function vender(int $quantidade)
     {
         if ($this->quantidade >= $quantidade) {
@@ -53,4 +67,6 @@ class Produto {
     {
         echo $this->nome . PHP_EOL;
     }
+
+    */
 }
