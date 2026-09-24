@@ -64,6 +64,42 @@ class PessoaRepository
 
     return $usuarios;
   }
+
+  public function buscarClientePorId(int $id): ?Cliente
+  {
+    $sql = <<<SQL
+      SELECT * FROM {$this->table} WHERE id = :id;
+    SQL;
+
+    $query = $this->pdo->prepare($sql);
+    $query->execute([':id' => $id]);
+    $pessoa = $query->fetch();
+
+    if (!$pessoa) {
+      return null;
+    }
+
+    return new Cliente(
+      id: (int) $pessoa['id'],
+      nome: $pessoa['nome'],
+      telefone: $pessoa['telefone'],
+      email: $pessoa['email'],
+      cpf: $pessoa['cpf'],
+      saldoDevedor: (float) $pessoa['saldo_devedor']
+    );
+  }
+
+  public function adicionarSaldoDevedor(int $id, float $valor): void
+  {
+    $sql = <<<SQL
+      UPDATE {$this->table}
+         SET saldo_devedor = saldo_devedor + :valor
+       WHERE id = :id;
+    SQL;
+
+    $query = $this->pdo->prepare($sql);
+    $query->execute([':valor' => $valor, ':id' => $id]);
+  }
 }
 
 ?>
