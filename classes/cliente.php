@@ -1,5 +1,5 @@
 <?php 
-require_once('pessoa.php');
+require_once(__DIR__ . '/pessoa.php');
 
 class Cliente extends Pessoa {
     
@@ -31,6 +31,7 @@ class Cliente extends Pessoa {
         return $this->saldoDevedor;
     }
 
+    /*
     public function registrarCompra(Produto $produto, int $quantidade): self
     {
         $produto->vender($quantidade);
@@ -38,6 +39,7 @@ class Cliente extends Pessoa {
 
         return $this;
     }
+    */
 
      public function getEmail(): string
     {

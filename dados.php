@@ -1,7 +1,6 @@
 <?php 
 
-require_once('./classes/cliente.php');
-require_once('./classes/produto.php');
+
 
 session_start();
 
@@ -44,6 +43,9 @@ $arrayProdutos = [
     ]
 ];
 
+
+/*
+
 $produtos = [];
 foreach ($arrayProdutos as $arrayProduto) {
     $produto = new Produto(
@@ -61,4 +63,7 @@ foreach ($arrayProdutos as $arrayProduto) {
     }
 
     $produtos[] = $produto;
+
 }
+/*
+

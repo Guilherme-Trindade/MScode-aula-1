@@ -1,8 +1,16 @@
 <?php
-require_once('dados.php');
+
+require_once(__DIR__ . '/classes/produto.php');
+require_once(__DIR__ . '/Infra/Repository/ProdutoRepository.php');
+require_once(__DIR__ . '/Infra/Repository/PessoaRepository.php');
+
+require_once(__DIR__ . '/Infra/Connection.php');
+
+$produtos = (new ProdutoRepository(
+    Connection::getConnection()
+))->buscarTodosProdutos();
 
 
-$produtos = $_SESSION['produtos'];
 
 ?>
 <!DOCTYPE html>
@@ -47,7 +55,7 @@ $produtos = $_SESSION['produtos'];
             <?php foreach ($produtos as $produto): ?>
                 <article class="product-card">
                     <div class="image-container">
-                        <img src="<?= htmlspecialchars($produto->getCaminhoImagem()) ?>" alt="<?= htmlspecialchars($produto->nome) ?>">
+                        <img src="<?= htmlspecialchars($produto->getImagem()) ?>" alt="<?= htmlspecialchars($produto->getNome()) ?>">
                     </div>
                     <div class="product-info">
                         <div class="product-meta">
@@ -57,8 +65,8 @@ $produtos = $_SESSION['produtos'];
                             </span>
 
                             <!-- Quantidade em Estoque vinda do Array em PHP -->
-                            <span class="stock-badge <?= $produto->getQuantidade() <= 5 ? 'low-stock' : '' ?>">
-                                Estoque: <?= (int)$produto->getQuantidade ()?> un.
+                            <span class="stock-badge <?= $produto->getEstoque() <= 5 ? 'low-stock' : '' ?>">
+                                Estoque: <?= (int)$produto->getEstoque() ?>
                             </span>
                         </div>
 
@@ -77,7 +85,7 @@ $produtos = $_SESSION['produtos'];
                             <span class="product-price">
                                 R$ <?= number_format($produto->getPreco(), 2, ',', '.') ?>
                             </span>
-                            <a href="comprar.php?id=<?= $produto->codigo ?>" class="btn-buy">Comprar</a>                        
+                            <a href="comprar.php?id=<?= $produto->getId() ?>" class="btn-buy">Comprar</a>                        
                         </div>
                     </div>
                 </article>

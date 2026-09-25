@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '../../../classes/cliente.php');
+require_once(__DIR__ . '/../../classes/cliente.php');
 
 class PessoaRepository
 {
@@ -27,14 +27,14 @@ class PessoaRepository
     $query->execute();
     
     $usuarios = [];
-    foreach($query->fetchAll() as $pessoa) {
+    foreach($query->fetchAll(PDO::FETCH_ASSOC) as $pessoa) {
       $usuarios[] = new Cliente(
-        id: $pessoa['id'],
+        id: (int) $pessoa['id'],
         nome: $pessoa['nome'],
         telefone: $pessoa['telefone'],
-        email: $pessoa['email'],
         cpf: $pessoa['cpf'],
-        saldoDevedor: $pessoa['saldo_devedor']
+        saldoDevedor: (float) $pessoa['saldo_devedor'],
+        email: $pessoa['email']
       );
     }
 
@@ -51,14 +51,14 @@ class PessoaRepository
     $query->execute();
 
     $usuarios = [];
-    foreach($query->fetchAll() as $pessoa) {
+    foreach($query->fetchAll(PDO::FETCH_ASSOC) as $pessoa) {
       $usuarios[] = new Cliente(
-        id: $pessoa['id'],
+        id: (int) $pessoa['id'],
         nome: $pessoa['nome'],
         telefone: $pessoa['telefone'],
-        email: $pessoa['email'],
         cpf: $pessoa['cpf'],
-        saldoDevedor: $pessoa['saldo_devedor']
+        saldoDevedor: (float) $pessoa['saldo_devedor'],
+        email: $pessoa['email']
       );
     }
 
