@@ -1,10 +1,7 @@
 <?php
-require_once(__DIR__ . '/Infra/Repository/PessoaRepository.php');
-require_once(__DIR__ . '/Infra/Connection.php');
+require_once('dados.php');
 
-$clientes = (new PessoaRepository(
-    Connection::getConnection()
-))->buscarClienteSaldoMenor10();
+$clientes = $_SESSION['clientes'];
 
 ?>
 <!DOCTYPE html>
@@ -51,7 +48,7 @@ $clientes = (new PessoaRepository(
                         </div>
                         <div class="client-name-container">
                             <h2 class="client-title"><?= htmlspecialchars($cliente->getNome()) ?></h2>
-                            <span class="client-id">Cliente #<?= sprintf('%03d', $cliente->getId()) ?></span>
+                            <span class="client-id">Cliente #<?= sprintf('%03d', $cliente->id) ?></span>
                         </div>
                     </div>
 
@@ -77,6 +74,7 @@ $clientes = (new PessoaRepository(
         </section>
     </main>
 
+    <!-- Rodape -->
     <footer>
         &copy; <?= date('Y') ?> Lojinha da Esquina - Sistema de Gestão com PHP e HTML
     </footer>
