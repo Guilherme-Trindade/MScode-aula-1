@@ -4,7 +4,7 @@ require_once(__DIR__ . '/Infra/Connection.php');
 
 $clientes = (new PessoaRepository(
     Connection::getConnection()
-))->buscarClienteSaldoMenor10();
+))->buscarTodosUsuarios();
 
 ?>
 <!DOCTYPE html>
