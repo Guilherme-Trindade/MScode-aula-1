@@ -1,25 +1,60 @@
 <?php
-require_once('dados.php');
-require_once('./classes/compraService.php');
+require_once(__DIR__ . '/Infra/Connection.php');
+require_once(__DIR__ . '/Infra/Repository/ProdutoRepository.php');
+require_once(__DIR__ . '/Infra/Repository/PessoaRepository.php');
+require_once(__DIR__ . '/classes/canalComunicacao.php');
+require_once(__DIR__ . '/classes/whastapp.php');
+require_once(__DIR__ . '/classes/compraService.php');
+
+
+ob_start();
+
+$pdo = null;
 
 try {
-    $produtoId = $_GET['id'] ?? null;
+    $pdo = Connection::getConnection();
 
-    $cliente = $_SESSION['clientes'][1];
+    $produtoId  = (int) ($_GET['id'] ?? 0);
+    $clienteId  = 1; 
+    $quantidade = 1;
 
-    $_SESSION['cliente'] = $cliente;
-    $produto = $_SESSION['produtos'][$produtoId];
+    $produtoRepository = new ProdutoRepository($pdo);
+    $pessoaRepository  = new PessoaRepository($pdo);
 
-    $_SESSION['clientes'][1] = $cliente->registrarCompra($produto, 1);
-    $_SESSION['produtos'][$produtoId] = $produto;
+    $produto = $produtoRepository->buscarPorId($produtoId);
+    $cliente = $pessoaRepository->buscarClientePorId($clienteId);
 
-    $whatsapp = new Whatsapp();
-    $compraService = new CompraService($whatsapp);
-    $compraService->finalizarCompra($cliente->getTelefone());
+    if ($produto === null) {
+        throw new Exception('Produto não encontrado');
+    }
+    if ($cliente === null) {
+        throw new Exception('Cliente não encontrado');
+    }
 
+    $pdo->beginTransaction();
+
+    
+    $cliente->registrarCompra($produto, $quantidade);
+
+   
+    if (!$produtoRepository->baixarEstoque($produtoId, $quantidade)) {
+        throw new Exception('Quantidade Insuficiente pra compra');
+    }
+    $pessoaRepository->adicionarSaldoDevedor($clienteId, $produto->getPreco() * $quantidade);
+
+    $pdo->commit();
+
+    $compraService = new CompraService(new Whatsapp());
+    $compraService->finalizarCompra($cliente->getTelefone(), $cliente->getNome());
+
+    ob_end_clean();
     header('Location: clientes.php');
+    exit;
 
 } catch (\Throwable $error) {
+    if ($pdo !== null && $pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
+    ob_end_clean();
     echo $error->getMessage();
 }
-
