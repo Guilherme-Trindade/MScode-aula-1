@@ -10,11 +10,34 @@ class PessoaRepository
     private PDO $pdo,
   ) {}
 
-  public function criarPessoa(Pessoa $pessoa): void
+  public function criarPessoa(Cliente $pessoa): bool
   {
     $sql = <<<SQL
-      INSERT INTO {$this->table} ()
+      INSERT INTO {$this->table} (
+          nome,
+          telefone,
+          cpf,
+          email,
+          saldo_devedor
+          ) VALUES (
+          :nome,
+          :telefone,
+          :cpf,
+          :email,
+          :saldoDevedor
+      );
     SQL;
+
+    $insert = $this->pdo->prepare($sql);
+    $insert->execute([
+      'nome' => $pessoa->getNome(),
+      'telefone' => $pessoa->getTelefone(),
+      'cpf' => $pessoa->getCpf(),
+      'email' => $pessoa->getEmail(),
+      'saldoDevedor' => $pessoa->getSaldoDevedor()
+    ]);
+
+    return true;
   }
 
   public function buscarTodosUsuarios(): array
