@@ -1,7 +1,6 @@
 <?php
 require_once('dados.php');
 
-
 $produtos = $_SESSION['produtos'];
 
 ?>
@@ -28,6 +27,7 @@ $produtos = $_SESSION['produtos'];
             <nav class="header-nav">
                 <a href="index.php" class="nav-link active">Produtos</a>
                 <a href="clientes.php" class="nav-link">Clientes</a>
+                <a href="cadastarCliente.php" class="nav-link">Cadastrar Cliente</a>
             </nav>
             <div class="cart-icon">
                  Carrinho (0)

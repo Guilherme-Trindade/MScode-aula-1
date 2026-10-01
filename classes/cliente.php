@@ -4,7 +4,7 @@ require_once('pessoa.php');
 class Cliente extends Pessoa {
     
     public function __construct(
-        private int $id,
+        private ?int $id,
         string $nome,
         string $telefone,
         string $cpf, 
@@ -20,7 +20,7 @@ class Cliente extends Pessoa {
     }
 
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
